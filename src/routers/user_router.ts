@@ -4,7 +4,6 @@ import express from 'express';
 import { isEmptyObject } from '../util/validator';
 import { adminGuard } from '../middleware/auth_middleware';
 import * as userService from '../services/user_service';
-import * as orderService from '../services/order_service';
 
 export const UserRouter = express.Router();
 
@@ -39,18 +38,7 @@ UserRouter.get('/:id', adminGuard, async (req, resp) => {
     }
 });
 
-UserRouter.get('/:id/orders', adminGuard, async (req, resp) => {
-    const id = +req.params.id;
-    try {
-        let payload = await orderService.getOrdersByUserId(id);
-        return resp.status(200).json(payload);
-    } catch (e) {
-        return resp.status(e.statusCode).json(e).send();
-    }
-});
-
-
-UserRouter.post('', async (req, resp) => {
+UserRouter.post('', adminGuard, async (req, resp) => {
 
     console.log('USER POST REQUEST RECEIVED AT /users');
     console.log(req.body);
@@ -62,7 +50,7 @@ UserRouter.post('', async (req, resp) => {
     }
 });
 
-UserRouter.delete('/:id', async (req, resp) => {
+UserRouter.delete('/:id', adminGuard, async (req, resp) => {
     const id = +req.params.id;
 
     console.log('USER DELETE REQUEST RECEIVED AT /users');
@@ -75,7 +63,7 @@ UserRouter.delete('/:id', async (req, resp) => {
     }
 });
 
-UserRouter.patch('/:id', async (req, resp) => {
+UserRouter.patch('/:id', adminGuard, async (req, resp) => {
     const id = +req.params.id;
 
     console.log('USER UPDATE REQUEST RECEIVED AT /users');

@@ -2,10 +2,9 @@
  * Basic methods for creating User, Order, and Item objects.
  */
 
-import { UserSchema, OrderSchema, ItemSchema } from './schemas';
+import { UserSchema, ReimbursementSchema } from './schemas';
 import { User } from '../models/user';
-import { Order } from '../models/order';
-import { Item } from '../models/item';
+import { Reimbursement } from '../models/reimbursement';
 
 export function mapUserResultSet(resultSet: UserSchema): User {
     
@@ -24,32 +23,22 @@ export function mapUserResultSet(resultSet: UserSchema): User {
     );
 }
 
-export function mapOrderResultSet(resultSet: OrderSchema): Order {
+export function mapReimbursementResultSet(resultSet: ReimbursementSchema): Reimbursement {
     
     if (!resultSet) {
-        return {} as Order;
+        return {} as Reimbursement;
     }
 
-    return new Order(
+    return new Reimbursement(
         resultSet.id,
-        resultSet.customerId,
-        resultSet.status,
-        resultSet.location,
-        resultSet.destination
-    );
-}
-
-export function mapItemResultSet(resultSet: ItemSchema): Item {
-    
-    if (!resultSet) {
-        return {} as Item;
-    }
-
-    return new Item(
-        resultSet.id,
-        resultSet.name,
+        resultSet.amount,
+        resultSet.submitted,
+        resultSet.resolved,
         resultSet.description,
-        resultSet.cost,
-        resultSet.amount
+        resultSet.receipt,
+        resultSet.author,
+        resultSet.resolver,
+        resultSet.reimb_status_id,
+        resultSet.reimb_type_id
     );
 }

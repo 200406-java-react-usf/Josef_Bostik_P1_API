@@ -12,8 +12,7 @@ import morgan from 'morgan';
 import path from 'path';
 
 import { UserRouter } from './routers/user_router';
-import { OrderRouter } from './routers/order_router';
-import { ItemRouter } from './routers/item_router';
+import { ReimbursementRouter } from './routers/reimbursement_router';
 import { AuthRouter } from './routers/auth_router';
 import { sessionMiddleware } from './middleware/session_middleware';
 import { corsFilter } from './middleware/cors_filter';
@@ -43,11 +42,10 @@ app.use(sessionMiddleware);
 app.use(corsFilter);
 app.use('/', bodyparser.json());
 app.use('/users', UserRouter);
-app.use('/orders', OrderRouter);
-app.use('/items', ItemRouter);
+app.use('/reimbursements', ReimbursementRouter);
 app.use('/auth', AuthRouter);
 
 
-app.listen(8080, () => {
-    console.log('Application running and listening at: http://localhost:8080');
+app.listen(5000, () => {
+    console.log('Application (is probably not) running and listening at: http://localhost:8080');
 });

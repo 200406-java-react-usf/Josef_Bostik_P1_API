@@ -10,18 +10,15 @@ export interface UserSchema {
     role_name: Role
 }
 
-export interface OrderSchema {
-    id: number,
-    customerId: number,
-    status: boolean,
-    location: string,
-    destination: string
-}
-
-export interface ItemSchema {
-    id: number,
-    name: string,
-    description: string,
-    cost: number,
-    amount: number
+export interface ReimbursementSchema {
+    id: number;
+    amount: number;
+    submitted: Date;
+    resolved: Date;
+    description: string;
+    receipt: number; //placeholder
+    author: string;
+    resolver: string;
+    reimb_status_id: number;
+    reimb_type_id: number;
 }
