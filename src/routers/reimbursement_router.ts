@@ -11,6 +11,17 @@ export const ReimbursementRouter = express.Router();
 // const userService = userInstance.getInstance();
 
 
+ReimbursementRouter.get('', adminGuard, async (req, resp) => {
+    try {
+
+        let payload = await reimbursementService.getAllReimbursements();
+        return resp.status(200).json(payload);
+
+    } catch (e) {
+        resp.status(e.statusCode).json(e);
+    }
+});
+
 ReimbursementRouter.get('/:id', adminGuard, async (req, resp) => {
     const id = +req.params.id;
     try {
