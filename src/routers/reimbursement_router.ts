@@ -32,7 +32,7 @@ ReimbursementRouter.get('/:id', adminGuard, async (req, resp) => {
     }
 });
 
-ReimbursementRouter.post('', async (req, resp) => {
+ReimbursementRouter.post('', adminGuard,async (req, resp) => {
 
     console.log('REIMBURSEMENT SUBMIT REQUEST RECEIVED AT /reimbursement');
     console.log(req.body);
