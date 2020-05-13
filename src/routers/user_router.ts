@@ -38,7 +38,7 @@ UserRouter.get('/:id', adminGuard, async (req, resp) => {
     }
 });
 
-UserRouter.post('', adminGuard, async (req, resp) => {
+UserRouter.post('', async (req, resp) => {
 
     console.log('USER POST REQUEST RECEIVED AT /users');
     console.log(req.body);
