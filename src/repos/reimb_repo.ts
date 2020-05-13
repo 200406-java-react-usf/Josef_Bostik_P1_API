@@ -69,20 +69,26 @@ export async function getById(id: number): Promise<Reimbursement> {
     Saves an Order to a new unique serial number
  */
 
-export async function save(newReimbursement: Reimbursement): Promise<Reimbursement> {
+export async function submit(newReimbursement: Reimbursement): Promise<Reimbursement> {
     let client: PoolClient;
 
     try {
         client = await connectionPool.connect();
+
+        let today = new Date();
+        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date+' '+time;
+        //console.log(dateTime);
+
         let sql = `
             insert into app_reimbursements (amount, submitted, resolved, description, receipt, author_id, resolver_id, reimb_status_id, reimb_type_id) 
-            values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id
+                values ($1, $2, null, $3, null, $4, null, $5, $6) returning id
         `;
-        let rs = await client.query(sql, [newReimbursement.amount, newReimbursement.submitted, 
-                                          newReimbursement.resolved, newReimbursement.description, 
-                                          newReimbursement.receipt, newReimbursement.author, 
-                                          newReimbursement.resolver, newReimbursement.reimb_status_id, 
-                                          newReimbursement.reimb_type_id]);
+
+        let rs = await client.query(sql, [newReimbursement.amount, dateTime,
+                                          newReimbursement.description, newReimbursement.author, 
+                                          newReimbursement.reimb_status_id, newReimbursement.reimb_type_id]);
         return mapReimbursementResultSet(rs.rows[0]);
     } catch (e) {
         throw new InternalServerError();
@@ -90,23 +96,37 @@ export async function save(newReimbursement: Reimbursement): Promise<Reimburseme
         client && client.release();
     }
 }
+
 /*
     Updates an Order based on a new Order object
 */
-export async function update(updatedReimbursement: Reimbursement): Promise<boolean> {
+export async function update(id: number, updatedReimbursement: Reimbursement): Promise<boolean> {
     let client: PoolClient;
 
     try {
         client = await connectionPool.connect();
+        let sqlSub = `
+            select ar.submitted 
+            from app_reimbursements ar
+            where ar.id = $1;
+        `
+        let rs = await client.query(sqlSub, [id]);
+
         let sql = `
-            update app_reimbursement
-            set amount = $2, submitted = $3, resolved = $4, description = $5, receipt = $6, author_id = $7, resolver_id = $8, reimb_status_id = $9, reimb_type_id = $10
-            where app_reimbursement.id = $1;
+            update app_reimbursements
+            set amount = $2, submitted = $3, resolved = $4, description = $5, receipt = null, author_id = $6, resolver_id = $7, reimb_status_id = $8, reimb_type_id = $9
+            where app_reimbursements.id = $1;
         `;
 
-        await client.query(sql, [updatedReimbursement.amount, updatedReimbursement.submitted, 
-                                 updatedReimbursement.resolved, updatedReimbursement.description, 
-                                 updatedReimbursement.receipt, updatedReimbursement.author, 
+        let today = new Date();
+        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date+' '+time;
+
+        console.log(updatedReimbursement.submitted);
+        await client.query(sql, [id, updatedReimbursement.amount, rs.rows[0].submitted, 
+                                 dateTime, updatedReimbursement.description, 
+                                  updatedReimbursement.author, 
                                  updatedReimbursement.resolver, updatedReimbursement.reimb_status_id, 
                                  updatedReimbursement.reimb_type_id]);
         return true;

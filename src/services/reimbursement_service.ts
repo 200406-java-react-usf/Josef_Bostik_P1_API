@@ -54,13 +54,12 @@ export async function getReimbursementById(id: number): Promise<Reimbursement> {
 /**
  * Adds a new order to the database
  */
-export async function addNewReimbursement(newReimbursement: Reimbursement): Promise<Reimbursement> {
+export async function submitReimbursement(newReimbursement: Reimbursement): Promise<Reimbursement> {
     
-    if (!isValidObject(newReimbursement, 'id')) {
-        throw new BadRequestError('Invalid property values found in provided user.');
-    }
-
-    const persistedOrder = await reimbursementRepo.save(newReimbursement);
+    // if (!isValidObject(newReimbursement)) {
+    //     throw new BadRequestError('Invalid property values found in provided reimbursement.');
+    // }
+    const persistedOrder = await reimbursementRepo.submit(newReimbursement);
 
     return persistedOrder;
 
@@ -74,14 +73,14 @@ export async function updateReimbursement(id: number, updatedReimbursement: Reim
     
 
 
-    if (!isValidObject(updatedReimbursement)) {
-        throw new BadRequestError('Invalid order provided (invalid values found).');
-    }
+    // if (!isValidObject(updatedReimbursement)) {
+    //     throw new BadRequestError('Invalid reimbursement provided (invalid values found).');
+    // }
 
     // let repo handle some of the other checking since we are still mocking db
     updatedReimbursement.id = id;
 
-    return await reimbursementRepo.update(updatedReimbursement);
+    return await reimbursementRepo.update(id, updatedReimbursement);
 
 }
 
