@@ -8,12 +8,12 @@ export class Reimbursement {
     resolved: Date;
     description: string;
     receipt: number; //placeholder
-    author: string;
+    author: number;
     resolver: string;
     reimb_status_id: number;
     reimb_type_id: number;
 
-    constructor(id: number, amount: number, submitted: Date, resolved: Date, description: string, receipt: number, author: string, resolver: string, reimb_status_id: number, reimb_type_id: number) {
+    constructor(id: number, amount: number, submitted: Date, resolved: Date, description: string, receipt: number, author: number, resolver: string, reimb_status_id: number, reimb_type_id: number) {
         this.id = id;
         this.amount = amount;
         this.submitted = submitted;

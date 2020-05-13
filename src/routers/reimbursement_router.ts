@@ -34,10 +34,10 @@ ReimbursementRouter.get('/:id', adminGuard, async (req, resp) => {
 
 ReimbursementRouter.post('', adminGuard, async (req, resp) => {
 
-    console.log('REIMBURSEMENT POST REQUEST RECEIVED AT /reimbursement');
+    console.log('REIMBURSEMENT SUBMIT REQUEST RECEIVED AT /reimbursement');
     console.log(req.body);
     try {
-        let newUser = await reimbursementService.addNewReimbursement(req.body);
+        let newUser = await reimbursementService.submitReimbursement(req.body);
         return resp.status(201).json(newUser).send();
     } catch (e) {
         return resp.status(e.statusCode).json(e).send();
@@ -56,6 +56,7 @@ ReimbursementRouter.delete('/:id', adminGuard, async (req, resp) => {
         return resp.status(e.statusCode).json(e).send();
     }
 });
+
 
 ReimbursementRouter.patch('/:id', adminGuard, async (req, resp) => {
     const id = +req.params.id;
