@@ -46,6 +46,21 @@ export async function getAll(): Promise<Reimbursement[]> {
     }
 }
 
+export async function getAllByUser(id: number): Promise<Reimbursement[]> {
+    let client: PoolClient;
+
+    try {
+        client = await connectionPool.connect();
+        let sql = `${baseQuery} where ar.author_id = $1`;
+        let rs = await client.query(sql, [id]); // rs = ResultSet
+        return rs.rows.map(mapReimbursementResultSet);
+    } catch (e) {
+        throw new InternalServerError();
+    } finally {
+        client && client.release();
+    }
+}
+
 /*
     Gets all items by the specified serial Id
 */

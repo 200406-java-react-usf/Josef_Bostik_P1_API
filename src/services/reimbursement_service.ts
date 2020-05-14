@@ -31,6 +31,20 @@ export async function getAllReimbursements(): Promise<Reimbursement[]> {
 
 }
 
+export async function getAllReimbursementsByUser(id: number): Promise<Reimbursement[]> {
+
+
+
+    let reimbursements = await reimbursementRepo.getAllByUser(id);
+
+    if (reimbursements.length == 0) {
+        throw new ResourceNotFoundError();
+    }
+
+    return reimbursements;
+
+}
+
 /**
  * Gets an order by its serial ID value
  */

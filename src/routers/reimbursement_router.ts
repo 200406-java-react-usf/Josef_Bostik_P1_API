@@ -32,6 +32,16 @@ ReimbursementRouter.get('/:id', adminGuard, async (req, resp) => {
     }
 });
 
+ReimbursementRouter.get('/user/:id', async (req, resp) => {
+    const id = +req.params.id;
+    try {
+        let payload = await reimbursementService.getAllReimbursementsByUser(id);
+        return resp.status(200).json(payload);
+    } catch (e) {
+        return resp.status(e.statusCode).json(e).send();
+    }
+});
+
 ReimbursementRouter.post('', async (req, resp) => {
 
     console.log('REIMBURSEMENT SUBMIT REQUEST RECEIVED AT /reimbursement');

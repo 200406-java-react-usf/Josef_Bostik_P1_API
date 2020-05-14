@@ -17,8 +17,8 @@ export interface ReimbursementSchema {
     resolved: Date;
     description: string;
     receipt: number; //placeholder
-    author: number;
-    resolver: string;
+    author_id: number;
+    resolver_id: number;
     reimb_status_id: number;
     reimb_type_id: number;
 }
