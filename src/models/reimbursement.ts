@@ -9,11 +9,11 @@ export class Reimbursement {
     description: string;
     receipt: number; //placeholder
     author: number;
-    resolver: string;
+    resolver: number;
     reimb_status_id: number;
     reimb_type_id: number;
 
-    constructor(id: number, amount: number, submitted: Date, resolved: Date, description: string, receipt: number, author: number, resolver: string, reimb_status_id: number, reimb_type_id: number) {
+    constructor(id: number, amount: number, submitted: Date, resolved: Date, description: string, receipt: number, author: number, resolver: number, reimb_status_id: number, reimb_type_id: number) {
         this.id = id;
         this.amount = amount;
         this.submitted = submitted;
