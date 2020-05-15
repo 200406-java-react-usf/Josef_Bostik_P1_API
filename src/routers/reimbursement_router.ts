@@ -11,7 +11,7 @@ export const ReimbursementRouter = express.Router();
 // const userService = userInstance.getInstance();
 
 
-ReimbursementRouter.get('', adminGuard, async (req, resp) => {
+ReimbursementRouter.get('', async (req, resp) => {
     try {
 
         let payload = await reimbursementService.getAllReimbursements();
@@ -22,7 +22,7 @@ ReimbursementRouter.get('', adminGuard, async (req, resp) => {
     }
 });
 
-ReimbursementRouter.get('/:id', adminGuard, async (req, resp) => {
+ReimbursementRouter.get('/:id', async (req, resp) => {
     const id = +req.params.id;
     try {
         let payload = await reimbursementService.getReimbursementById(id);
@@ -54,7 +54,7 @@ ReimbursementRouter.post('', async (req, resp) => {
     }
 });
 
-ReimbursementRouter.delete('/:id', adminGuard, async (req, resp) => {
+ReimbursementRouter.delete('/:id', async (req, resp) => {
     const id = +req.params.id;
 
     console.log('REIMBURSEMENT DELETE REQUEST RECEIVED AT /reimbursement');
@@ -68,7 +68,7 @@ ReimbursementRouter.delete('/:id', adminGuard, async (req, resp) => {
 });
 
 
-ReimbursementRouter.patch('/:id', adminGuard, async (req, resp) => {
+ReimbursementRouter.patch('/:id', async (req, resp) => {
     const id = +req.params.id;
 
     console.log('REIMBURSEMENT UPDATE REQUEST RECEIVED AT /reimbursement');
