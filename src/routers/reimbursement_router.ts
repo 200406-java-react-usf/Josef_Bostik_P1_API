@@ -11,7 +11,7 @@ export const ReimbursementRouter = express.Router();
 // const userService = userInstance.getInstance();
 
 
-ReimbursementRouter.get('', async (req, resp) => {
+ReimbursementRouter.get('', managerGuard, async (req, resp) => {
     try {
 
         let payload = await reimbursementService.getAllReimbursements();
@@ -22,7 +22,7 @@ ReimbursementRouter.get('', async (req, resp) => {
     }
 });
 
-ReimbursementRouter.get('/:id', async (req, resp) => {
+ReimbursementRouter.get('/:id', managerGuard, async (req, resp) => {
     const id = +req.params.id;
     try {
         let payload = await reimbursementService.getReimbursementById(id);
@@ -32,7 +32,7 @@ ReimbursementRouter.get('/:id', async (req, resp) => {
     }
 });
 
-ReimbursementRouter.get('/user/:id', async (req, resp) => {
+ReimbursementRouter.get('/user/:id', userGuard, async (req, resp) => {
     const id = +req.params.id;
     try {
         let payload = await reimbursementService.getAllReimbursementsByUser(id);
@@ -42,7 +42,7 @@ ReimbursementRouter.get('/user/:id', async (req, resp) => {
     }
 });
 
-ReimbursementRouter.post('', async (req, resp) => {
+ReimbursementRouter.post('', userGuard, async (req, resp) => {
 
     console.log('REIMBURSEMENT SUBMIT REQUEST RECEIVED AT /reimbursement');
     console.log(req.body);
@@ -54,7 +54,7 @@ ReimbursementRouter.post('', async (req, resp) => {
     }
 });
 
-ReimbursementRouter.delete('/:id', async (req, resp) => {
+ReimbursementRouter.delete('/:id', userGuard, async (req, resp) => {
     const id = +req.params.id;
 
     console.log('REIMBURSEMENT DELETE REQUEST RECEIVED AT /reimbursement');
@@ -68,7 +68,7 @@ ReimbursementRouter.delete('/:id', async (req, resp) => {
 });
 
 
-ReimbursementRouter.patch('/:id', async (req, resp) => {
+ReimbursementRouter.patch('/:id', userGuard, async (req, resp) => {
     const id = +req.params.id;
 
     console.log('REIMBURSEMENT UPDATE REQUEST RECEIVED AT /reimbursement');
