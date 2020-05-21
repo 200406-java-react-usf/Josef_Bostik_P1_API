@@ -147,7 +147,7 @@ export async function update(updatedUser: User): Promise<boolean> {
             where app_users.id = $1;
         `;
         console.log(updatedUser);
-        await client.query(sql, [updatedUser.id, updatedUser.username, updatedUser.password, updatedUser.firstName, updatedUser.lastName, updatedUser.email, updatedUser.role.id]);
+        await client.query(sql, [updatedUser.id, updatedUser.username, updatedUser.password, updatedUser.firstName, updatedUser.lastName, updatedUser.email, +updatedUser.role]);
 
         return true;
     } catch (e) {

@@ -202,7 +202,6 @@ export async function updateUser(id: number, updatedUser: User): Promise<boolean
         // let repo handle some of the other checking since we are still mocking db
         
         updatedUser.id = id;
-        updatedUser.role = new Role('User'); // all new registers have 'User' role by default
         
         return await userRepo.update(updatedUser);
 

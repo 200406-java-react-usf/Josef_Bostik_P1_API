@@ -33,7 +33,9 @@ export async function getAllReimbursements(): Promise<Reimbursement[]> {
 
 export async function getAllReimbursementsByUser(id: number): Promise<Reimbursement[]> {
 
-
+    if (!isValidId(id)) {
+        throw new BadRequestError();
+    }
 
     let reimbursements = await reimbursementRepo.getAllByUser(id);
 
