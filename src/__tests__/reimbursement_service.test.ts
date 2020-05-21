@@ -1,4 +1,4 @@
-import * as sut from '../services/Reimbursement_service';
+import * as sut from '../services/reimbursement_service';
 import * as mockRepo from '../repos/reimb_repo';
 import * as mockValidator from '../util/validator';
 
