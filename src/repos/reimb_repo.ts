@@ -133,15 +133,15 @@ export async function update(id: number, updatedReimbursement: Reimbursement): P
             where app_reimbursements.id = $1;
         `;
 
-        let today = new Date();
-        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        let dateTime = date+' '+time;
+        // let today = new Date();
+        // let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        // let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        // let dateTime = date+' '+time;
 
         console.log(updatedReimbursement.submitted);
         await client.query(sql, [id, updatedReimbursement.amount, rs.rows[0].submitted, 
-                                 dateTime, updatedReimbursement.description, 
-                                  updatedReimbursement.author, 
+                                 updatedReimbursement.resolved, updatedReimbursement.description, 
+                                 updatedReimbursement.author, 
                                  updatedReimbursement.resolver, updatedReimbursement.reimb_status_id, 
                                  updatedReimbursement.reimb_type_id]);
         return true;
