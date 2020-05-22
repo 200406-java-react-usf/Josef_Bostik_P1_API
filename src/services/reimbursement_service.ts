@@ -1,5 +1,5 @@
 /**
- * The purpose of order_service ensures that all properties passed to order_repo are valid.
+ * The purpose of reimbursement_service ensures that all properties passed to reimbursement_repo are valid.
  */
 
 import { Reimbursement } from '../models/reimbursement';
@@ -14,7 +14,7 @@ import { BadRequestError,
 
 
 /**
- * Retrieves all orders from the orderRepo and returns them
+ * Retrieves all reimbursements from the reimbursementRepo and returns them
  * if they exist.
  */
 export async function getAllReimbursements(): Promise<Reimbursement[]> {
@@ -31,6 +31,10 @@ export async function getAllReimbursements(): Promise<Reimbursement[]> {
 
 }
 
+/**
+ * Retrieves all reimbursements with the user id from the reimbursementRepo and returns them
+ * if they exist.
+ */
 export async function getAllReimbursementsByUser(id: number): Promise<Reimbursement[]> {
 
     if (!isValidId(id)) {
@@ -48,7 +52,7 @@ export async function getAllReimbursementsByUser(id: number): Promise<Reimbursem
 }
 
 /**
- * Gets an order by its serial ID value
+ * Gets an reimbursement by its serial ID value
  */
 export async function getReimbursementById(id: number): Promise<Reimbursement> {
 
@@ -68,7 +72,7 @@ export async function getReimbursementById(id: number): Promise<Reimbursement> {
 
 
 /**
- * Adds a new order to the database
+ * Adds a new reimbursement to the database
  */
 export async function submitReimbursement(newReimbursement: Reimbursement): Promise<Reimbursement> {
     
@@ -82,7 +86,7 @@ export async function submitReimbursement(newReimbursement: Reimbursement): Prom
 }
 
 /**
- * Updates an order at the specified index given a new order object and a
+ * Updates a reimbursement at the specified index given a new reimbursement object and a
  * specified index.
  */
 export async function updateReimbursement(id: number, updatedReimbursement: Reimbursement): Promise<boolean> {
@@ -101,7 +105,7 @@ export async function updateReimbursement(id: number, updatedReimbursement: Reim
 }
 
 /**
- * Deletes an item given its serial ID
+ * Deletes a reimbursement given its serial ID
  */
 export async function deleteById(id: number): Promise<boolean> {
     

@@ -29,7 +29,6 @@ let baseQuery = `
 /*
     Gets everything in the Reimbursement database
 */
-
 export async function getAll(): Promise<Reimbursement[]> {
 
     let client: PoolClient;
@@ -46,6 +45,9 @@ export async function getAll(): Promise<Reimbursement[]> {
     }
 }
 
+/*
+    Gets everything in the Reimbursement database connected to a given user
+*/
 export async function getAllByUser(id: number): Promise<Reimbursement[]> {
     let client: PoolClient;
 
@@ -62,7 +64,7 @@ export async function getAllByUser(id: number): Promise<Reimbursement[]> {
 }
 
 /*
-    Gets all items by the specified serial Id
+    Gets all reimbursementss by the specified serial Id
 */
 
 export async function getById(id: number): Promise<Reimbursement> {
@@ -81,7 +83,7 @@ export async function getById(id: number): Promise<Reimbursement> {
 }
 
 /*
-    Saves an Order to a new unique serial number
+    Saves a reimbursement to a new unique serial number
  */
 
 export async function submit(newReimbursement: Reimbursement): Promise<Reimbursement> {
@@ -113,7 +115,7 @@ export async function submit(newReimbursement: Reimbursement): Promise<Reimburse
 }
 
 /*
-    Updates an Order based on a new Order object
+    Updates a reimbursmeent based on a new reimbursement object
 */
 export async function update(id: number, updatedReimbursement: Reimbursement): Promise<boolean> {
     let client: PoolClient;
@@ -154,7 +156,7 @@ export async function update(id: number, updatedReimbursement: Reimbursement): P
 
 
 /*
-    Deletes an order by its specified serial number
+    Deletes a reimbursement by its specified serial number
 */
 export async function deleteById(id: number): Promise<boolean> {
     let client: PoolClient;
